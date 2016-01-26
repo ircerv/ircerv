@@ -5,27 +5,54 @@
  */
 package pl.edu.uksw.irc.executor;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author Anna Łukaszek-Zadrożna
  */
 public class Channels {
-    List<Channel> channels;
+    Set<Channel> channels;
     
     
 
     public Channels() {
+        channels = new HashSet<>();
     }
     /**
      * 
      * @param member
-     * @param channelsToJoin Jeżeli przyszło w DTO 0 (wypisz mnie ze wszystkich channeli), to tu przekaż null
+     * @param channelsToJoin 
      */
-    public void join(User member, List<Channel> channelsToJoin){
-        if(channelsToJoin == null){
+    public void join(User member, String[] channelsToJoin){
+        if(channelsToJoin.length == 1 && channelsToJoin[0].equals("0")){
+            for(Channel ch: channels){
+                if(ch.isUserInChannel(member)){
+                    ch.removeUser(member);
+                }
+            }
+            
+        }else{
+            for (String channelsToJoin1 : channelsToJoin) {
+                if (!channels.contains(new Channel(channelsToJoin1))) {
+                    channels.add(new Channel(channelsToJoin1, "", member));
+                } else {
+                    for (Channel channel : channels) {
+                        if (channel.channelName.equals(channelsToJoin1)) {
+                            channel.addUser(member);
+                        }
+                    }
+                }
+            }
+        }   
+        
+        
+        
+        
+       /* if(channelsToJoin == null){    
             Iterator<User> iterator ;
             for(Channel ch:channels){
                 for(iterator= ch.membersList.iterator(); iterator.hasNext();){
@@ -55,8 +82,30 @@ public class Channels {
                             chFind.membersList.add(member);
                     }
             }
-        }
+        }*/
         
+    }
+    
+    public boolean isChannelInList(Channel channel){
+        return channels.contains(channel);
+    }
+    public void confirm(){
+        
+    }
+    
+    public void part(User member, String[] channelsToLeave){
+        Iterator<Channel> iterator;
+              
+        for (iterator = channels.iterator(); iterator.hasNext();) {
+            Channel chIterator = iterator.next();
+            for (String channel : channelsToLeave) {
+                if (chIterator.channelName.equals(channel)) {
+                    chIterator.removeUser(member);
+
+                }
+            }
+        }
+
     }
     
 }

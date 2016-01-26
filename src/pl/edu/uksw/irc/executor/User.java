@@ -9,24 +9,24 @@ import java.nio.channels.SelectionKey;
 
 /**
  *
- * @author Anna Łukaszek-Zadrożna
+ * @author Anna Lukaszek-Zadrozna
  */
 public class User {
     SelectionKey userKey; //hash, którego używa Jarek
     String nickName;
     String hostName;
-    String serwerName;
+   // String serwerName;
     Boolean i; // i - marks a users as invisible;
     Boolean s;//      s - marks a user for receipt of server notices;
     Boolean w; //       w - user receives wallops;
     Boolean o; //      o - operator flag.
     
     
-    public User(SelectionKey key, String nick, String host, String serwer){
+    public User(SelectionKey key, String nick, String host){
        userKey = key;
        nickName = nick;
        hostName = host;
-       serwerName = serwer;
+       //serwerName = serwer;
        i= s = w = o = null;
         
     }
@@ -66,9 +66,9 @@ public class User {
         return hostName;
     }
 
-    public String getSerwerName() {
+   /* public String getSerwerName() {
         return serwerName;
-    }
+    }*/
 
     public Boolean getI() {
         return i;
@@ -77,6 +77,7 @@ public class User {
     public Boolean getS() {
         return s;
     }
+    
 
     public Boolean getW() {
         return w;
@@ -98,9 +99,9 @@ public class User {
         this.hostName = hostName;
     }
 
-    public void setSerwerName(String serwerName) {
+   /* public void setSerwerName(String serwerName) {
         this.serwerName = serwerName;
-    }
+    }*/
 
     public void setI(Boolean i) {
         this.i = i;

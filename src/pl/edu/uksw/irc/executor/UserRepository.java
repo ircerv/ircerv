@@ -28,5 +28,22 @@ public class UserRepository {
     public int getSize(){
         return userDB.size();
     }
+    
+    public void nick(String newNick){
+        
+    }
+    public void nick(String oldNick, String newNick){
+    }
+    
+   
+    public void pong(User userFrom, User userTo, String key){
+        userFrom.msg(userTo,key);
+        
+    
+    
+    }
+    public User getUser(String name){
+        Iterator<User> iterator;
+    }
 
 }
